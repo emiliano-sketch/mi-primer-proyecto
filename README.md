@@ -1,32 +1,27 @@
-<!-- El símbolo # crea el título principal más grande -->
-# ♟️ Mi Primer Juego de Ajedrez con IA
+<!-- Título principal con temática medieval -->
+# ⚔️ Ajedrez Medieval Mágico con IA 🐉
 
-¡Bienvenido a mi primer proyecto de programación! Este es un juego de ajedrez interactivo creado desde cero para jugarse directamente en el navegador web.
+¡Bienvenido a mi proyecto de programación! Este es un juego de ajedrez medieval interactivo inspirado en *Wizard Chess*, creado para jugarse directamente en el navegador web.
 
-<!-- Dos símbolos ## crean un subtítulo de sección -->
 ## 🎮 ¿Cómo jugar ahora mismo?
-Puedes abrir y jugar el ajedrez haciendo clic en el siguiente enlace público:
+El enlace se actualiza automáticamente con cada mejora. Haz clic aquí para entrar al santuario:
 
-<!-- Los corchetes [ ] contienen el texto visible y los paréntesis ( ) el enlace web -->
-👉 **[Jugar al Ajedrez Aquí](https://emiliano-sketch.github.io/mi-primer-proyecto/)**
-
----
-
-## ✨ Características del juego
-<!-- Los asteriscos * crean una lista de viñetas y los dobles asteriscos ** ponen texto en negrita -->
-* **Modos de juego:** Juega contra la Inteligencia Artificial (IA) o en modo de 2 jugadores en el mismo dispositivo.
-* **3 Niveles de Dificultad de IA:**
-  * 🟢 *Fácil (Principiante):* Movimientos aleatorios ideales para practicar.
-  * 🟡 *Medio (Cazador):* La IA evalúa el valor de las piezas para hacer capturas.
-  * 🔴 *Difícil (Estratega):* La IA anticipa jugadas futuras para proteger sus piezas y atacar.
-* **Elección de bando:** Juega con las piezas Blancas o Negras (el tablero gira automáticamente).
-* **Ayuda visual:** Indicadores en color verde que muestran los movimientos legales de cada pieza.
-* **Controles:** Botones para **Deshacer Jugada** y **Reiniciar Partida**.
+<!-- El enlace sigue siendo exactamente el mismo porque apunta a tu archivo index.html -->
+👉 **[Jugar al Ajedrez Medieval Aquí](https://emiliano-sketch.github.io/mi-primer-proyecto/)**
 
 ---
 
-## 🛠️ Tecnologías utilizadas
-Todo el proyecto está integrado en un único archivo (`index.html`) para facilitar su estudio:
-1. **HTML5:** Estructura del tablero, botones y menús de configuración.
-2. **CSS3:** Diseño visual con cuadrícula (*CSS Grid*), colores de las casillas y resaltados.
-3. **JavaScript:** Lógica de las reglas de cada pieza, control de turnos y motor de Inteligencia Artificial.
+## 🧙‍♂️ Criaturas y Hechizos del Tablero
+* **🐉 Dragones (Caballos):** Vuelan sobre obstáculos y atacan con **aliento de fuego**.
+* **🧙‍♂️ Magos Arcanos (Alfiles):** Lanzan **rayos de energía mágica** en diagonal para desintegrar piezas.
+* **🔮 Hechicera Suprema (Reina):** Invoca **meteoros místicos** en cualquier dirección recta o diagonal.
+* **🏰 Gólems de Torre (Torres):** Aplastan a sus enemigos provocando un **terremoto** en el tablero.
+* **⚔️ Guardias Reales (Peones):** Atacan cuerpo a cuerpo y ascienden a Hechicera al cruzar el tablero.
+* **👑 Monarcas (Reyes):** Líderes de la **Orden de la Luz** y la **Legión Oscura**.
+
+---
+
+## ✨ Características técnicas
+1. **Física de destrucción:** Las piezas derrotadas explotan en fragmentos de piedra y chispas mágicas.
+2. **Inteligencia Artificial en 3 niveles:** Aprendiz (Fácil), Caballero (Medio) y Archimago (Difícil), además de modo para 2 jugadores.
+3. **Efectos de sonido sintetizados:** Audio de hechizos y explosiones generado directamente con JavaScript (*Web Audio API*) sin archivos externos.
