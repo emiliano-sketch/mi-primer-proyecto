@@ -2,7 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Wizard Chess - Edición Medieval Mágica</title>
+    <!-- --- ETIQUETAS ANTI-CACHÉ: Obligan al navegador a mostrar siempre el código más reciente --- -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>Wizard Chess v2.0 - Edición Medieval Mágica</title>
     <style>
         /* --- 1. AMBIENTACIÓN DE CATEDRAL GÓTICA MEDIEVAL (CSS) --- */
         body {
@@ -18,12 +23,19 @@
         }
 
         h1 {
-            margin: 5px 0;
+            margin: 5px 0 2px 0;
             font-size: 28px;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #f39c12;
             text-shadow: 0 0 12px rgba(243, 156, 18, 0.7), 2px 2px 4px #000;
+        }
+
+        .etiqueta-version {
+            font-size: 12px;
+            color: #2ecc71;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
         }
 
         /* Crónica de batalla que narra los hechizos y ataques */
@@ -46,6 +58,8 @@
             border: 2px solid #7f6000;
             margin-bottom: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .grupo-control {
@@ -111,7 +125,7 @@
             margin-right: 10px;
         }
 
-        /* Contenedor del Tablero con perspectiva 2.5D y marco de piedra */
+        /* Contenedor del Tablero con marco de piedra medieval */
         .contenedor-santuario {
             position: relative;
             padding: 12px;
@@ -154,7 +168,7 @@
             border: 1px solid #1b1824;
         }
 
-        /* Estilo de las piezas según su bando (Luz vs Oscuridad) */
+        /* Aura mágica para diferenciar los ejércitos (Luz vs Oscuridad) */
         .pieza-blanca {
             filter: drop-shadow(0 0 6px #00ffff) drop-shadow(0 3px 2px #000);
             transform: scale(1.05);
@@ -165,13 +179,12 @@
             transform: scale(1.05);
         }
 
-        /* Etiqueta pequeña con el rol medieval al pasar el ratón */
         .casilla:hover {
             z-index: 5;
             transform: scale(1.08);
         }
 
-        /* Runa mágica cuando seleccionas una pieza */
+        /* Runa dorada cuando seleccionas una pieza */
         .seleccionada {
             background: radial-gradient(circle, #f39c12 10%, #7d6608 100%) !important;
             box-shadow: inset 0 0 12px #fff;
@@ -187,7 +200,7 @@
             animation: girarRuna 3s linear infinite;
         }
 
-        /* Indicador rojo de objetivo de ataque / hechizo */
+        /* Mira de objetivo para lanzar hechizo o fuego */
         .objetivo-ataque::after {
             content: '🎯';
             font-size: 26px;
@@ -264,6 +277,7 @@
 
     <!-- --- 2. ESTRUCTURA DEL SANTUARIO MEDIEVAL (HTML) --- -->
     <h1>⚔️ Ajedrez Medieval Mágico 🐉</h1>
+    <div class="etiqueta-version">✔ Versión 2.0 Activa - Dragones y Hechizos</div>
     <div id="cronica-batalla">Selecciona un guerrero o criatura para iniciar la batalla...</div>
 
     <div class="panel-configuracion">
@@ -316,7 +330,6 @@
             'k': '👑', 'q': '🔮', 'r': '🏰', 'b': '🧙‍♂️', 'n': '🐉', 'p': '⚔️'
         };
 
-        // Nombres épicos para el registro de batalla
         const nombresPiezas = {
             'K': 'El Rey', 'Q': 'La Hechicera', 'R': 'El Gólem de Torre',
             'B': 'El Mago Arcano', 'N': 'El Dragón', 'P': 'El Guardia'
@@ -340,7 +353,6 @@
         const selectorColor = document.getElementById('selector-color');
         const selectorModo = document.getElementById('selector-modo');
 
-        // Sintetizador de audio para hechizos, fuego de dragón y destrucción de piedra
         const contextoAudio = new (window.AudioContext || window.webkitAudioContext)();
         function sonarEfecto(tipo) {
             try {
@@ -421,7 +433,6 @@
             const absCol = Math.abs(difCol);
             const tipoPieza = pieza.toUpperCase();
 
-            // Guardia Medieval (Peón)
             if (tipoPieza === 'P') {
                 const direccion = esPiezaBlanca(pieza) ? -1 : 1;
                 const filaInicial = esPiezaBlanca(pieza) ? 6 : 1;
@@ -431,15 +442,10 @@
                 if (absCol === 1 && difFila === direccion && piezaDestino !== '') return true;
                 return false;
             }
-            // Gólem / Castillo (Torre)
             if (tipoPieza === 'R') return (fOrigen === fDestino || cOrigen === cDestino) && caminoDespejado(fOrigen, cOrigen, fDestino, cDestino, tablero);
-            // Dragón (Caballo) -> Vuela en L sobre obstáculos
             if (tipoPieza === 'N') return (absFila === 2 && absCol === 1) || (absFila === 1 && absCol === 2);
-            // Mago Arcano (Alfil) -> Canaliza hechizos en diagonal
             if (tipoPieza === 'B') return (absFila === absCol) && caminoDespejado(fOrigen, cOrigen, fDestino, cDestino, tablero);
-            // Hechicera Suprema (Reina)
             if (tipoPieza === 'Q') return (fOrigen === fDestino || cOrigen === cDestino || absFila === absCol) && caminoDespejado(fOrigen, cOrigen, fDestino, cDestino, tablero);
-            // Monarca (Rey)
             if (tipoPieza === 'K') return absFila <= 1 && absCol <= 1;
             return false;
         }
@@ -481,14 +487,11 @@
                     const casilla = document.createElement('div');
                     casilla.classList.add('casilla');
                     casilla.classList.add((fila + col) % 2 === 0 ? 'clara' : 'oscura');
-                    casilla.dataset.fila = fila;
-                    casilla.dataset.col = col;
 
                     if (casillaSeleccionada) {
                         if (casillaSeleccionada.fila === fila && casillaSeleccionada.col === col) {
                             casilla.classList.add('seleccionada');
                         } else if (esMovimientoValido(casillaSeleccionada.fila, casillaSeleccionada.col, fila, col)) {
-                            // Si hay un enemigo, mostramos mira de hechizo/ataque; si no, runa verde
                             if (estadoTablero[fila][col] !== '') {
                                 casilla.classList.add('objetivo-ataque');
                             } else {
@@ -512,9 +515,6 @@
             }
         }
 
-        /* --- 4. MOTOR DE ANIMACIONES DE HECHIZOS Y DESTRUCCIÓN DE PIEDRA --- */
-
-        // Obtiene la posición en píxeles de una casilla dentro del tablero
         function obtenerCoordenadasPixel(fila, col) {
             const girarTablero = (selectorColor.value === 'negras');
             const filaVisual = girarTablero ? 7 - fila : fila;
@@ -522,7 +522,6 @@
             return { x: colVisual * 60 + 18, y: filaVisual * 60 + 18 };
         }
 
-        // Crea fragmentos de piedra y chispas mágicas cuando una pieza es eliminada
         function explotarPieza(fila, col, colorMagia) {
             const origen = obtenerCoordenadasPixel(fila, col);
             sonarEfecto('explosion');
@@ -534,7 +533,6 @@
                 fragmento.classList.add('particula-piedra');
                 fragmento.style.left = (origen.x + 8) + 'px';
                 fragmento.style.top = (origen.y + 8) + 'px';
-                // Alternamos trozos de piedra gris con chispas del hechizo
                 fragmento.style.backgroundColor = (i % 3 === 0) ? colorMagia : '#7f8c8d';
                 fragmento.style.boxShadow = `0 0 6px ${colorMagia}`;
                 contenedorTablero.appendChild(fragmento);
@@ -553,7 +551,6 @@
             }
         }
 
-        // Dispara el ataque visual según la clase medieval (Mago, Dragón, Gólem, etc.)
         function animarAtaqueMedieval(fO, cO, fD, cD, piezaAtacante, piezaVictima, alTerminar) {
             const tipo = piezaAtacante.toUpperCase();
             const nombreAtacante = nombresPiezas[tipo];
@@ -599,7 +596,6 @@
             proyectil.style.boxShadow = `0 0 18px 6px ${colorEfecto}`;
             contenedorTablero.appendChild(proyectil);
 
-            // Movemos el hechizo/fuego hacia la pieza enemiga
             requestAnimationFrame(() => {
                 proyectil.style.left = fin.x + 'px';
                 proyectil.style.top = fin.y + 'px';
@@ -647,7 +643,6 @@
                 estadoTablero[fDestino][cDestino] = piezaQueSeMueve;
                 estadoTablero[fOrigen][cOrigen] = '';
 
-                // Ascenso mágico: Guardia se convierte en Hechicera Suprema
                 if (piezaQueSeMueve === 'P' && fDestino === 0) {
                     estadoTablero[fDestino][cDestino] = 'Q';
                     cronicaBatalla.textContent = '✨ ¡El Guardia ha ascendido a Hechicera Suprema! ✨';
@@ -672,7 +667,6 @@
                 }
             };
 
-            // Si hay captura, lanzamos el hechizo o ataque antes de mover
             if (piezaCapturada !== '') {
                 animacionEnCurso = true;
                 dibujarTablero();
@@ -710,7 +704,6 @@
             dibujarTablero();
         }
 
-        /* --- 5. INTELIGENCIA ARTIFICIAL --- */
         function obtenerTodosLosMovimientos(paraBlancas, tablero = estadoTablero) {
             let movimientos = [];
             for (let fO = 0; fO < 8; fO++) {
